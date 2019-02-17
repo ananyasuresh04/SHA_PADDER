@@ -3,11 +3,13 @@
 # Preferences
 #
 preferences set plugin-enable-svdatabrowser-new 1
+preferences set cursorctl-dont-show-sync-warning 1
 preferences set toolbar-Standard-WaveWindow {
   usual
   position -pos 1
 }
 preferences set plugin-enable-groupscope 0
+preferences set sb-display-values 1
 preferences set plugin-enable-interleaveandcompare 0
 preferences set plugin-enable-waveformfrequencyplot 0
 preferences set whats-new-dont-show-at-startup 1
@@ -15,9 +17,9 @@ preferences set whats-new-dont-show-at-startup 1
 #
 # Databases
 #
-database require padder -search {
-	./padder.shm/padder.trn
-	/home/vv2trainee19/Desktop/git/SHA_PADDER/padder.shm/padder.trn
+database require pp_test -search {
+	./pp_test.shm/pp_test.trn
+	/home/vv2trainee19/Desktop/git/SHA_PADDER/pp_test.shm/pp_test.trn
 }
 
 #
@@ -42,47 +44,61 @@ waveform sidebar select designbrowser
 waveform set \
     -primarycursor TimeA \
     -signalnames name \
-    -signalwidth 31 \
+    -signalwidth 104 \
     -units ns \
-    -valuewidth 198
+    -valuewidth 77
 waveform baseline set -time 0
 
 set id [waveform add -signals  {
-	padder::sha256_padder_tb.dut.clk
+	pp_test::sha256_padder_tb.dut.clk
 	} ]
 set id [waveform add -signals  {
-	{padder::sha256_padder_tb.dut.msg_data[31:0]}
+	pp_test::sha256_padder_tb.dut.rst_n
 	} ]
 set id [waveform add -signals  {
-	padder::sha256_padder_tb.dut.msg_last
+	{pp_test::sha256_padder_tb.dut.msg_data[31:0]}
 	} ]
 set id [waveform add -signals  {
-	{padder::sha256_padder_tb.dut.msg_last_bytes[1:0]}
+	pp_test::sha256_padder_tb.dut.msg_valid
 	} ]
 set id [waveform add -signals  {
-	padder::sha256_padder_tb.dut.msg_valid
+	pp_test::sha256_padder_tb.dut.msg_last
 	} ]
 set id [waveform add -signals  {
-	padder::sha256_padder_tb.dut.rst_n
+	{pp_test::sha256_padder_tb.dut.msg_last_bytes[1:0]}
 	} ]
 set id [waveform add -signals  {
-	padder::sha256_padder_tb.dut.o_last_word
+	{pp_test::sha256_padder_tb.dut.o_block_512[511:0]}
 	} ]
 set id [waveform add -signals  {
-	padder::sha256_padder_tb.dut.o_ready
-	} ]
-set id [waveform add -signals  {
-	{padder::sha256_padder_tb.dut.o_word[31:0]}
-	} ]
-set id [waveform add -signals  {
-	padder::sha256_padder_tb.dut.o_word_valid
+	pp_test::sha256_padder_tb.dut.o_block_valid
 	} ]
 
-waveform xview limits 38.314ns 62.144ns
+waveform xview limits 464.987ns 1274.987ns
 
 #
 # Waveform Window Links
 #
+
+#
+# Source Browser windows
+#
+if {[catch {window new SrcBrowser -name "Source Browser 2" -geometry 1366x665+-1+27}] != ""} {
+    window geometry "Source Browser 2" 1366x665+-1+27
+}
+window target "Source Browser 2" on
+srcbrowser using {Source Browser 2}
+srcbrowser set \
+    -primarycursor TimeA \
+    -units ns \
+    -radix default \
+    -showstrength 0 \
+    -showcallstack 0 \
+    -displayvalues 1
+
+srcbrowser show -scope sha256_padder_tb.dut -file /home/vv2trainee19/Desktop/git/SHA_PADDER/pp.v -line 57
+
+srcbrowser sidebar visibility partial
 
 #
 # Console windows
