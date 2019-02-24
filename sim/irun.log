@@ -1,0 +1,25 @@
+irun(64): 15.20-s051: (c) Copyright 1995-2018 Cadence Design Systems, Inc.
+TOOL:	irun(64)	15.20-s051: Started on Feb 25, 2019 at 05:09:34 IST
+irun
+	-access +rwc
+	-f ../compile.f
+		../rtl/counter_4bit.v
+		../rtl/sha256_msg_scheduler.v
+		../rtl/sha256_round.v
+		../rtl/sha256_compress_fsm.v
+		../rtl/sha256_f4_compress.v
+		../rtl/sha256_comp_fsm_top.v
+		../rtl/sha256_hash_update.v
+		../rtl/sha256_top1.v
+		../rtl/pad.v
+		../tb/padder_include_tb01.v
+Loading snapshot worklib.sha256_padder:v .................... Done
+ncsim> source /tools/cadence/INCISIVE152/tools/inca/files/ncsimrc
+ncsim> run
+T=0 | digest_valid=0 | digest=0000000000000000000000000000000000000000000000000000000000000000
+T=605000 | digest_valid=1 | digest=142a21c0be2074aa1ac1b9767ea96270ed52afb4b4191da3f99bda6e120c3024
+T=615000 | digest_valid=0 | digest=0000000000000000000000000000000000000000000000000000000000000000
+Simulation complete via $finish(1) at time 1630 NS + 0
+../tb/padder_include_tb01.v:142         $finish;
+ncsim> exit
+TOOL:	irun(64)	15.20-s051: Exiting on Feb 25, 2019 at 05:09:34 IST  (total: 00:00:00)

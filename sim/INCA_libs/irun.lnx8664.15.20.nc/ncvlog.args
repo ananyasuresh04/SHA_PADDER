@@ -1,0 +1,26 @@
+//
+// File created by:  irun
+// Do not modify this file
+//
+-XLMODE
+./INCA_libs/irun.lnx8664.15.20.nc
+-RUNMODE
+../rtl/counter_4bit.v
+../rtl/sha256_msg_scheduler.v
+../rtl/sha256_round.v
+../rtl/sha256_compress_fsm.v
+../rtl/sha256_f4_compress.v
+../rtl/sha256_comp_fsm_top.v
+../rtl/sha256_hash_update.v
+../rtl/sha256_top1.v
+../rtl/pad.v
+../tb/padder_include_tb01.v
+-CDSLIB
+./INCA_libs/irun.lnx8664.15.20.nc/cdsrun.lib
+-HDLVAR
+./INCA_libs/irun.lnx8664.15.20.nc/hdlrun.var
+-MESSAGES
+-UPDATE
+-XLLIBSTORE
+./INCA_libs/irun.lnx8664.15.20.nc/xllibs
+-ALLOWUNBOUND

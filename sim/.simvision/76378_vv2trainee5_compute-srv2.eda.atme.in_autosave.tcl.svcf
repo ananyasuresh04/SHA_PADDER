@@ -1,0 +1,170 @@
+
+#
+# Preferences
+#
+preferences set toolbar-txe_waveform_navigate-WaveWindow {
+  usual
+  shown 1
+}
+preferences set plugin-enable-svdatabrowser-new 1
+preferences set toolbar-Standard-WaveWindow {
+  usual
+  position -pos 1
+}
+preferences set plugin-enable-groupscope 0
+preferences set toolbar-txe_waveform_view-WaveWindow {
+  usual
+  shown 1
+}
+preferences set sb-display-values 1
+preferences set plugin-enable-interleaveandcompare 0
+preferences set plugin-enable-waveformfrequencyplot 0
+
+#
+# Databases
+#
+database require sha256_except_padder -search {
+	./sha256_except_padder.shm/sha256_except_padder.trn
+	/home/vv2trainee5/Desktop/sudheer/SHA256/sim/sha256_except_padder.shm/sha256_except_padder.trn
+}
+
+#
+# Mnemonic Maps
+#
+mmap new -reuse -name {Boolean as Logic} -radix %b -contents {{%c=FALSE -edgepriority 1 -shape low}
+{%c=TRUE -edgepriority 1 -shape high}}
+mmap new -reuse -name {Example Map} -radix %x -contents {{%b=11???? -bgcolor orange -label REG:%x -linecolor yellow -shape bus}
+{%x=1F -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=2C -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=* -label %x -linecolor gray -shape bus}}
+
+#
+# Waveform windows
+#
+if {[catch {window new WaveWindow -name "Waveform 1" -geometry 1366x665+-1+27}] != ""} {
+    window geometry "Waveform 1" 1366x665+-1+27
+}
+window target "Waveform 1" on
+waveform using {Waveform 1}
+waveform sidebar select designbrowser
+waveform set \
+    -primarycursor TimeA \
+    -signalnames name \
+    -signalwidth 161 \
+    -units ns \
+    -valuewidth 97
+waveform baseline set -time 0
+
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.clk_in
+	} ]
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.rst_n_in
+	} ]
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.block_valid_in
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.block_in[511:0]}
+	} ]
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.last_block_in
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.msg_sched.block_in[511:0]}
+	} ]
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.msg_sched.block_valid_in
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.msg_sched.out_words_out[127:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.compress.msg_words_in[127:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.cnt_k_addr[3:0]}
+	} ]
+waveform format $id -radix %b
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.compress.r0.ao[31:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.compress.c_h0_to_h7_out[255:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.compress.r0.a[31:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.compress.k_addr_r0[31:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.compress.k_addr_r1[31:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.compress.k_addr_r2[31:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.compress.k_addr_r3[31:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.compress.comp_out[255:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.compress.c1[31:0]}
+	} ]
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.compress.h_load_in
+	} ]
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.compress.comp_new_h_in
+	} ]
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.compress.comp_done_in
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.hash_update.h_update_out[255:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.comp_fsm_top.fsm.next_state[2:0]}
+	} ]
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.digest_valid_out
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.hash_update.digest_out[255:0]}
+	} ]
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.hash_update.h_update_en_in
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.hash_update.c_h0_to_h7_in[255:0]}
+	} ]
+set id [waveform add -signals  {
+	sha256_except_padder::tb_sha256_top1.dut.hash_update.final_blk_in
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.comp_fsm_top.fsm.next_state[2:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.comp_fsm_top.fsm.curr_state[2:0]}
+	} ]
+set id [waveform add -signals  {
+	{sha256_except_padder::tb_sha256_top1.dut.hash_update.h0_to_h7_in[255:0]}
+	} ]
+
+waveform xview limits 10ns 610ns
+
+#
+# Waveform Window Links
+#
+
+#
+# Console windows
+#
+console set -windowname Console
+window geometry Console 600x250+0+0
+
+#
+# Layout selection
+#
