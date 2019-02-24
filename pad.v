@@ -33,9 +33,9 @@ module sha256_padder (
     reg [31:0] word_with_pad;
     always @(*) begin
         case (msg_last_bytes)
-            2'd1:    word_with_pad = (msg_data & 32'hFF000000) | 32'h00800000;
-            2'd2:    word_with_pad = (msg_data & 32'hFFFF0000) | 32'h00008000;
-            2'd3:    word_with_pad = (msg_data & 32'hFFFFFF00) | 32'h00000080;
+           2'd1: word_with_pad = {msg_data[31:24], 8'h80, 16'h0000};// 2'd1:    word_with_pad = (msg_data & 32'hFF000000) | 32'h00800000;
+           2'd2: word_with_pad = {msg_data[31:16], 8'h80, 8'h00};// 2'd2:    word_with_pad = (msg_data & 32'hFFFF0000) | 32'h00008000;
+           2'd3: word_with_pad = {msg_data[31:8],  8'h80}; // 2'd3:    word_with_pad = (msg_data & 32'hFFFFFF00) | 32'h00000080;
             default: word_with_pad = 32'h80000000; 
         endcase
     end
@@ -43,15 +43,24 @@ module sha256_padder (
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             state <= S_IDLE;
-            ptr <= 0; total_len <= 0; out_cnt <= 0;
-            spillover <= 0; pad_pushed <= 0; msg_done_latched <= 0;
-            o_block_512 <= 0; o_block_valid <= 0;
+            ptr <= 0;
+            total_len <= 0; 
+            out_cnt <= 0;
+            spillover <= 0; 
+            pad_pushed <= 0; 
+            msg_done_latched <= 0;
+            o_block_512 <= 0; 
+            o_block_valid <= 0;
+            
             for (i=0; i<16; i=i+1) block[i] <= 32'd0;
-        end else begin
+        end
+    else 
+    begin
             o_block_valid <= 0;
 
             case (state)
                 S_IDLE: begin
+           
                     ptr <= 0; 
                     total_len <= 0; // Only reset length here (Start of new msg)
                     spillover <= 0; 
@@ -62,18 +71,24 @@ module sha256_padder (
                         block[0] <= (msg_last && msg_last_bytes != 0) ? word_with_pad : msg_data;
                         total_len <= (msg_last) ? (msg_last_bytes == 0 ? 32 : (msg_last_bytes << 3)) : 32;
                         
-                        if (msg_last) begin
+                        if (msg_last)
+                        begin
                             msg_done_latched <= 1; // Mark done
-                            if (msg_last_bytes == 0) begin
+                            if (msg_last_bytes == 0) 
+                            begin
                                 block[1] <= 32'h80000000;
                                 for (i=2; i<14; i=i+1) block[i] <= 0;
-                            end else begin
+                            end
+                        else 
+                        begin
                                 for (i=1; i<14; i=i+1) block[i] <= 0;
                             end
                             block[14] <= 0;
                             block[15] <= (msg_last_bytes == 0) ? 32 : (msg_last_bytes << 3);
                             state <= S_STREAM;
-                        end else begin
+                        end
+                        else 
+                        begin
                             ptr <= 1;
                             state <= S_RECEIVE;
                         end
@@ -94,25 +109,33 @@ module sha256_padder (
                                     if (ptr < 15) block[ptr+1] <= 32'h80000000;
                                     else pad_pushed <= 1;
                                     for (i=0; i<16; i=i+1) if (i > ptr+1) block[i] <= 0;
-                                end else begin
+                                end 
+                            else 
+                            begin
                                     block[ptr+1] <= 32'h80000000;
                                     for (i=ptr+2; i<14; i=i+1) block[i] <= 0;
                                     block[14] <= 0; 
                                     block[15] <= total_len + (msg_last_bytes == 0 ? 32 : (msg_last_bytes << 3));
                                 end
-                            end else begin
+                            end
+                            else 
+                            begin
                                 block[ptr] <= word_with_pad;
                                 if (ptr >= 14) begin
                                     spillover <= 1;
                                     for (i=ptr+1; i<16; i=i+1) block[i] <= 0;
-                                end else begin
+                                end
+                            else
+                            begin
                                     for (i=ptr+1; i<14; i=i+1) block[i] <= 0;
                                     block[14] <= 0;
                                     block[15] <= total_len + (msg_last_bytes << 3);
                                 end
                             end
                             state <= S_STREAM;
-                        end else begin
+                        end
+                        else 
+                        begin
                             block[ptr] <= msg_data;
                             if (ptr == 15) begin 
                                 state <= S_STREAM; 
@@ -122,8 +145,8 @@ module sha256_padder (
                     end
                 end
 
-                S_STREAM: begin
-                    if (out_cnt == 0) begin
+              /*  S_STREAM: begin
+                   // if (out_cnt == 0) begin
                         o_block_valid <= 1;
                         o_block_512   <= {block[0],  block[1],  block[2],  block[3], 
                                           block[4],  block[5],  block[6],  block[7], 
@@ -131,7 +154,7 @@ module sha256_padder (
                                           block[12], block[13], block[14], block[15]};
                     end
 
-                    if (out_cnt == 15) begin
+                   if (out_cnt == 15) begin
                         out_cnt <= 0;
                         if (spillover) begin
                             state <= S_EXTRA;
@@ -142,15 +165,39 @@ module sha256_padder (
                             ptr <= 0; 
                             state <= S_RECEIVE; 
                         end
-                    end else out_cnt <= out_cnt + 1;
-                end
+                    end 
+                    else out_cnt <= out_cnt + 1;
+                end*/
+                 
+               
+               S_STREAM: begin
+                    // 1. Output Immediately
+                    o_block_valid <= 1;
+                    o_block_512   <= {block[0], block[1], block[2], block[3], 
+                                      block[4], block[5], block[6], block[7], 
+                                      block[8], block[9], block[10], block[11], 
+                                      block[12], block[13], block[14], block[15]};
 
+                    // 2. Transition Immediately (Don't wait 16 cycles)
+                    out_cnt <= 0; 
+                    
+                    if (spillover) begin
+                        state <= S_EXTRA;
+                    end else if (msg_done_latched) begin
+                        state <= S_IDLE; 
+                    end else begin
+                        ptr <= 0; 
+                        state <= S_RECEIVE; 
+                    end
+                end
+              
                 S_EXTRA: begin
                     spillover <= 0;
                     if (pad_pushed) begin 
                         block[0] <= 32'h80000000; 
                         for (i=1; i<14; i=i+1) block[i] <= 0; 
-                    end else begin 
+                    end 
+                else begin 
                         for (i=0; i<14; i=i+1) block[i] <= 0; 
                     end
                     block[14] <= total_len >> 32;
@@ -162,4 +209,3 @@ module sha256_padder (
         end
     end
 endmodule
-

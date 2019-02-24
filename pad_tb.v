@@ -46,8 +46,8 @@ end
         msg_valid <= 0; msg_last <= 0;
         
         #100;
-//        wait(o_block_valid);
-        repeat(20) @(posedge clk);
+       // wait(o_block_valid);
+        repeat(5) @(posedge clk);
 
 
         // ----------------------------------------
@@ -69,10 +69,10 @@ end
 
         repeat(2) begin
             #50;
-//            wait(o_block_valid);
+          // wait(o_block_valid);
             @(posedge clk); while(o_block_valid) @(posedge clk);
         end
-        repeat(20) //@(posedge clk);
+        repeat(5) @(posedge clk);
         #50;
 
         // ----------------------------------------
@@ -91,7 +91,7 @@ end
             if (word_counter == 16 && i != 29) begin
                 @(posedge clk);
                 msg_valid <= 0;
-                repeat(16) @(posedge clk); 
+                repeat(2) @(posedge clk); 
                 word_counter = 0;
             end
         end
@@ -100,10 +100,10 @@ end
 
         repeat(3) begin
             #50;
-            //wait(o_block_valid);
+         //  wait(o_block_valid);
             @(posedge clk); while(o_block_valid) @(posedge clk);
         end
-        repeat(20) @(posedge clk);
+        repeat(2) @(posedge clk);
 
 
         // ----------------------------------------
@@ -111,7 +111,7 @@ end
         // ----------------------------------------
         $display("\nTEST 4: 400 Bytes (Expect 7 Blocks)");
         word_counter = 0;
-        block_counter = 0;
+       // block_counter = 0;
 
         for (i=0; i<100; i=i+1) begin
             @(posedge clk);
@@ -121,26 +121,30 @@ end
             if (i == 99) begin
                 msg_last <= 1;
                 msg_last_bytes <= 0; 
-            end else msg_last <= 0;
+            end
+            else msg_last <= 0;
 
             word_counter = word_counter + 1;
             if (word_counter == 16 && i != 99) begin
                 @(posedge clk);
                 msg_valid <= 0; 
-                repeat(16) @(posedge clk); 
+               // repeat(16) @(posedge clk); 
+               wait(o_block_valid); 
+                @(posedge clk); // Allow valid pulse to finish
                 word_counter = 0; 
             end
         end
 
         @(posedge clk); msg_valid <= 0; msg_last <= 0;
 
-        repeat(7) begin
-//            wait(o_block_valid);
+        repeat(7
+        ) begin
+           // wait(o_block_valid);
             #50;
             block_counter = block_counter + 1;
             @(posedge clk); while(o_block_valid) @(posedge clk);
         end
-        repeat(20) @(posedge clk);
+        repeat(2) @(posedge clk);
 
 
         // ----------------------------------------
@@ -153,7 +157,7 @@ end
         msg_valid <= 0; msg_last <= 0;
         
         #100;
-//        wait(o_block_valid);
+       // wait(o_block_valid);
         $display("  -> Block Received");
 
         #100;
