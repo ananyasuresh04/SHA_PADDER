@@ -1,0 +1,5 @@
+s1(05Mar2019:00:53:47):  irun -access +rwc top_m1.v pad_fsm.v top_m1_tb.v 
+s2(05Mar2019:00:55:25):  irun -access +rwc top_m1.v pad_fsm.v top_m1_tb.sv 
+s3(05Mar2019:00:57:16):  irun -access +rwc top_m1.v pad_fsm.v top_m1_tb.sv 
+s4(05Mar2019:01:00:48):  irun -access +rwc top_m1.v pad_fsm.v top_m1_tb.sv 
+s5(05Mar2019:00:56:47):  irun -access +rwc top_m1.v pad_fsm.v top_m1_tb.sv 
