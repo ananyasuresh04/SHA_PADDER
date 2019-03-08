@@ -2,9 +2,5 @@
 // File created by:  irun
 // Do not modify this file
 //
--access
-+rwc
-pad.v
-pad_tb.v
--define
+-DEFINE
 SHA512

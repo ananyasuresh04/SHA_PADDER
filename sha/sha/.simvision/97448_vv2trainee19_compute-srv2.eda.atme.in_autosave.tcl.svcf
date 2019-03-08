@@ -46,7 +46,7 @@ waveform set \
     -signalnames name \
     -signalwidth 175 \
     -units ns \
-    -valuewidth 107
+    -valuewidth 162
 waveform baseline set -time 0
 
 set id [waveform add -signals  {
@@ -125,7 +125,7 @@ set id [waveform add -signals  {
 	{sha256_512::tb_sha256_padder.uut.blk15_out[63:0]}
 	} ]
 
-waveform xview limits 0 2000ns
+waveform xview limits 0 500ns
 
 #
 # Waveform Window Links
