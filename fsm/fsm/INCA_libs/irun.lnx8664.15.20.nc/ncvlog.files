@@ -1,0 +1,12 @@
+//
+// File created by:  irun
+// Do not modify this file
+//
+/home/vv2trainee19/Desktop/Ananya/fsm/word_counter.v
+/home/vv2trainee19/Desktop/Ananya/fsm/byte_count.v
+/home/vv2trainee19/Desktop/Ananya/fsm/pad_fsm.v
+/home/vv2trainee19/Desktop/Ananya/fsm/padder_mux.v
+/home/vv2trainee19/Desktop/Ananya/fsm/sipo_512.v
+/home/vv2trainee19/Desktop/Ananya/fsm/pipo.v
+/home/vv2trainee19/Desktop/Ananya/fsm/top_m1.v
+/home/vv2trainee19/Desktop/Ananya/fsm/top_m1_tb.v

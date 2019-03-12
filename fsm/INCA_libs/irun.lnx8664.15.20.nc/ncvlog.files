@@ -2,6 +2,6 @@
 // File created by:  irun
 // Do not modify this file
 //
-/home/vv2trainee19/Desktop/Ananya/fsm/top_m1.v
-/home/vv2trainee19/Desktop/Ananya/fsm/pad_fsm.v
-/home/vv2trainee19/Desktop/Ananya/fsm/top_m1_tb.sv
+/home/vv2trainee19/Desktop/git/SHA_PADDER/fsm/SHA_PADDER.v
+/home/vv2trainee19/Desktop/git/SHA_PADDER/fsm/SHA_TOP.v
+/home/vv2trainee19/Desktop/git/SHA_PADDER/fsm/SHA_TOP_TB.v

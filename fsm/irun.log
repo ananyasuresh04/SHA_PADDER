@@ -1,29 +1,44 @@
 irun(64): 15.20-s051: (c) Copyright 1995-2018 Cadence Design Systems, Inc.
-TOOL:	irun(64)	15.20-s051: Started on Mar 05, 2019 at 00:56:47 IST
+TOOL:	irun(64)	15.20-s051: Started on Mar 06, 2019 at 02:42:29 IST
 irun
 	-access +rwc
-	top_m1.v
-	pad_fsm.v
-	top_m1_tb.sv
-Recompiling... reason: file './top_m1_tb.v' is newer than expected.
-	expected: Tue Mar  5 00:53:18 2019
-	actual:   Tue Mar  5 00:56:13 2019
-file: top_m1_tb.sv
-	module worklib.tb_sha256_padder:sv
+	-f compile.f
+		SHA_PADDER.v
+		SHA_TOP.v
+		SHA_TOP_TB.v
+Recompiling... reason: file './SHA_PADDER.v' is newer than expected.
+	expected: Wed Mar  6 02:35:54 2019
+	actual:   Wed Mar  6 02:42:25 2019
+file: SHA_PADDER.v
+	module worklib.sha256_padder_fsm:v
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
-        .msg_data(msg_data),
-                |
-ncelab: *E,CUVPOM (./top_m1_tb.sv,20|16): Port name 'msg_data' is invalid or has multiple connections.
-        .valid_bytes(valid_bytes),
-                   |
-ncelab: *E,CUVPOM (./top_m1_tb.sv,21|19): Port name 'valid_bytes' is invalid or has multiple connections.
-        .padded_block(padded_block),
-                    |
-ncelab: *E,CUVPOM (./top_m1_tb.sv,22|20): Port name 'padded_block' is invalid or has multiple connections.
-        .block_ready(block_ready)
-                   |
-ncelab: *E,CUVPOM (./top_m1_tb.sv,23|19): Port name 'block_ready' is invalid or has multiple connections.
-irun: *E,ELBERR: Error during elaboration (status 1), exiting.
-TOOL:	irun(64)	15.20-s051: Exiting on Mar 05, 2019 at 00:56:47 IST  (total: 00:00:00)
+	Top level design units:
+		tb_sha256
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.sha256_padder_fsm:v <0x7575ff26>
+			streams:   5, words:  5301
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 3       3
+		Registers:              22      22
+		Scalar wires:           10       -
+		Vectored wires:          5       -
+		Always blocks:           8       8
+		Initial blocks:          2       2
+		Pseudo assignments:      7       7
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.tb_sha256:v
+Loading snapshot worklib.tb_sha256:v .................... Done
+ncsim> source /tools/cadence/INCISIVE152/tools/inca/files/ncsimrc
+ncsim> run
+TEST 1 : abc
+TEST 2 : OVERFLOW
+BLOCK = 00000000414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414242000042428000
+FINAL = 0
+Simulation compleTOOL:	irun(64)	15.20-s051: Exiting on Mar 07, 2019 at 19:20:10 IST  (total: 65:06:29)
+OL:	irun(64)	15.20-s051: Exiting on Mar 06, 2019 at 02:TOOL:	irun(64)	15.20-s051: Exiting on Mar 07, 2019 at 19:20:10 IST  (total: 65:19:12)

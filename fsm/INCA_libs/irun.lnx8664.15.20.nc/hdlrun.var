@@ -83,4 +83,4 @@ define VIEW_MAP ( $VIEW_MAP \
 , .SVMS => SVMS \
 )
 define ELAB_SNAPSHOT
-define SNAPSHOT worklib.tb_sha256_padder:sv
+define SNAPSHOT worklib.tb_sha256:v

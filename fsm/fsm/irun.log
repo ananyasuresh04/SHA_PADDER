@@ -1,0 +1,65 @@
+irun(64): 15.20-s051: (c) Copyright 1995-2018 Cadence Design Systems, Inc.
+TOOL:	irun(64)	15.20-s051: Started on Mar 12, 2019 at 22:47:35 IST
+irun
+	-access +rwc
+	-f compile.f
+		word_counter.v
+		byte_count.v
+		pad_fsm.v
+		padder_mux.v
+		sipo_512.v
+		pipo.v
+		top_m1.v
+		top_m1_tb.v
+Recompiling... reason: file './top_m1_tb.v' is newer than expected.
+	expected: Tue Mar 12 22:46:04 2019
+	actual:   Tue Mar 12 22:47:33 2019
+file: word_counter.v
+                 /*  else if ( msg_stall)
+                  |
+ncvlog: *W,NOCMIC (word_counter.v,26|18): error-prone block comment nested within block comment [2.3(IEEE)].
+file: top_m1_tb.v
+	module worklib.tb_padder_top:v
+		errors: 0, warnings: 0
+	Total errors/warnings found outside modules and primitives:
+		errors: 0, warnings: 1
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Top level design units:
+		tb_padder_top
+        .mux_sel(mux_sel),
+                       |
+ncelab: *W,CUVMPW (./top_m1.v,92|23): port sizes differ in port connection (3/2).
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.tb_padder_top:v <0x1a1ffbc7>
+			streams:  18, words: 10498
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 8       8
+		Registers:              18      18
+		Scalar wires:           18       -
+		Expanded wires:        517      18
+		Vectored wires:          9       -
+		Always blocks:          10      10
+		Initial blocks:          9       9
+		Cont. assignments:       6      23
+		Pseudo assignments:      8       8
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.tb_padder_top:v
+Loading snapshot worklib.tb_padder_top:v .................... Done
+ncsim> source /tools/cadence/INCISIVE152/tools/inca/files/ncsimrc
+ncsim> run
+TIME=0 | VALID=0 | OUT=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+==============================================
+ FINAL BLOCK OUT  = 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+ FINAL VALID FLAG = 0
+==============================================
+
+Simulation complete via $finish(1) at time 230 NS + 0
+./top_m1_tb.v:89         $finish;
+ncsim> exit
+TOOL:	irun(64)	15.20-s051: Exiting on Mar 12, 2019 at 22:47:36 IST  (total: 00:00:01)

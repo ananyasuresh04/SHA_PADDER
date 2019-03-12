@@ -5,9 +5,9 @@
 -XLMODE
 ./INCA_libs/irun.lnx8664.15.20.nc
 -RUNMODE
-top_m1.v
-pad_fsm.v
-top_m1_tb.sv
+SHA_PADDER.v
+SHA_TOP.v
+SHA_TOP_TB.v
 -CDSLIB
 ./INCA_libs/irun.lnx8664.15.20.nc/cdsrun.lib
 -HDLVAR
